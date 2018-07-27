@@ -12,9 +12,15 @@
 */
 Route::auth();
 Route::get('/', ['uses' => 'HomeController@home']);
+Route::get('qrLogin', ['uses' => 'QrLoginController@index']);
+Route::get('qrLogin-option1', ['uses' => 'QrLoginController@indexoption2']);
+Route::post('qrLogin', ['uses' => 'QrLoginController@checkUser']);
 
- Route::group(['middleware' => ['web', 'auth', 'permission'] ], function () {
+Route::match(['get', 'post'], 'user/import', ['as' => 'user.import', 'uses' => 'UserController@importUsers']);
+
+Route::group(['middleware' => ['web', 'auth', 'permission'] ], function () {
         Route::get('dashboard', ['uses' => 'HomeController@dashboard', 'as' => 'home.dashboard']);
+
         //users
         Route::resource('user', 'UserController');
         Route::get('user/{user}/permissions', ['uses' => 'UserController@permissions', 'as' => 'user.permissions']);
@@ -28,5 +34,11 @@ Route::get('/', ['uses' => 'HomeController@home']);
         Route::get('role/{role}/permissions', ['uses' => 'RoleController@permissions', 'as' => 'role.permissions']);
         Route::post('role/{role}/save', ['uses' => 'RoleController@save', 'as' => 'role.save']);
         Route::post('role/check', ['uses' => 'RoleController@check']);
+
+        //Update User Qr Code
+        Route::get('my-qrcode', ['uses' => 'QrLoginController@ViewUserQrCode']);
+        Route::post('qrLogin-autogenerate', ['uses' => 'QrLoginController@QrAutoGenerate']);
+
+
         
  });

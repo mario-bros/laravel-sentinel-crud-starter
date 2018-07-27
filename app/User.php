@@ -57,7 +57,7 @@ class User extends Model implements RoleableInterface, PermissibleInterface, Per
      * {@inheritDoc}
      */
     protected $hidden = [
-        'password','remember_token',
+        'password','remember_token', 'QRpassword'
     ];
 
     //Change Password
@@ -147,6 +147,24 @@ class User extends Model implements RoleableInterface, PermissibleInterface, Per
     public function getLoginNames()
     {
         return $this->loginNames;
+    }
+
+    /**
+     * Returns the roles relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function user_event_detail()
+    {
+        //return $this->hasMany('App\UserVenueDetail', 'user_id', 'id');
+        //return $this->hasMany('App\UserVenueDetail', 'id', 'user_id');
+
+        //return $this->hasOne('App\UserVenueDetail', 'user_id', 'id');
+        //return $this->hasOne('App\UserVenueDetail', 'idH', 'user_id');
+        return $this->hasOne('App\UserVenueDetail', 'user_id');
+        //return $this->hasOne('App\UserVenueDetail');
+
+        //return $this->belongsTo('App\UserVenueDetail');
     }
 
     /**
