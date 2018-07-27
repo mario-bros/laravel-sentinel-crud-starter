@@ -19,6 +19,7 @@ use Hash;
 use Mail;
 use Carbon\Carbon;
 use Excel;
+use PDF;
 use Illuminate\Support\Facades\Input;
 
 
@@ -487,6 +488,22 @@ class UserController extends Controller
         Session::flash('status', 'success');
 
         return View('backEnd.users.import');
+    }
+
+    public function downloadPDF($id)
+    {
+        $user = User::findOrFail($id);
+        //dd($user->user_event_detail->seat_class);
+
+        //$pdf = PDF::loadView('pdf', compact('user'));
+        $pdf = PDF::loadView('backEnd.users.pdf', compact('user'));
+        $pdf->save('pdf/' . $id . '.pdf');
+
+        $pdfToImage = new \Spatie\PdfToImage\Pdf('pdf/' . $id . '.pdf');
+        $pdfToImage->setOutputFormat('png');
+        $pdfToImage->saveImage('png/' . $id . '.png');
+
+        return $pdf->download('user-event-detail.pdf');
     }
 
 }

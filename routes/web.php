@@ -17,6 +17,19 @@ Route::get('qrLogin-option1', ['uses' => 'QrLoginController@indexoption2']);
 Route::post('qrLogin', ['uses' => 'QrLoginController@checkUser']);
 
 Route::match(['get', 'post'], 'user/import', ['as' => 'user.import', 'uses' => 'UserController@importUsers']);
+Route::get('download/user/event/detail/{id}', ['uses' => 'UserController@downloadPDF']);
+
+Route::get('check/user/certificate', ['uses' => 'QrLoginController@checkUserCertificate']);
+Route::post('check/user/certificate', ['uses' => 'QrLoginController@userCertificateChecked']);
+
+Route::get('check/user/first-snack', ['uses' => 'QrLoginController@checkUserFirstSnack']);
+Route::post('check/user/first-snack', ['uses' => 'QrLoginController@userFirstSnackChecked']);
+
+Route::get('check/user/second-snack', ['uses' => 'QrLoginController@checkUserSecondSnack']);
+Route::post('check/user/second-snack', ['uses' => 'QrLoginController@userSecondSnackChecked']);
+
+Route::get('check/user/lunch', ['uses' => 'QrLoginController@checkUserLunch']);
+Route::post('check/user/lunch', ['uses' => 'QrLoginController@userLunchChecked']);
 
 Route::group(['middleware' => ['web', 'auth', 'permission'] ], function () {
         Route::get('dashboard', ['uses' => 'HomeController@dashboard', 'as' => 'home.dashboard']);
@@ -38,7 +51,4 @@ Route::group(['middleware' => ['web', 'auth', 'permission'] ], function () {
         //Update User Qr Code
         Route::get('my-qrcode', ['uses' => 'QrLoginController@ViewUserQrCode']);
         Route::post('qrLogin-autogenerate', ['uses' => 'QrLoginController@QrAutoGenerate']);
-
-
-        
  });

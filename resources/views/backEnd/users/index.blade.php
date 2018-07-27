@@ -48,12 +48,15 @@
                             @if (Sentinel::getUser()->hasAccess(['user.show']))
                                 <a href="{{route('user.show', $user->id)}}" class="btn btn-success btn-xs">View</a>
                             @endif
+
                             @if (Sentinel::getUser()->hasAccess(['user.edit']))
                                 <a href="{{route('user.edit', $user->id)}}" class="btn btn-success btn-xs">edit</a>
                             @endif
+
                             @if (Sentinel::getUser()->hasAccess(['user.permissions']))
                                 <a href="{{route('user.permissions', $user->id)}}" class="btn btn-warning btn-xs">Permissions</a>
                             @endif
+
                             @if (Sentinel::getUser()->hasAccess(['user.destroy']))
                                 {!! Form::open(['method'=>'DELETE', 'route' => ['user.destroy', $user->id], 'style' => 'display:inline']) !!}
                                 {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs','id'=>'delete-confirm']) !!}
@@ -69,6 +72,8 @@
                                     <a href="{{route('user.deactivate', $user->id)}}" class="btn btn-warning btn-xs">Deactivate</a>
                                 @endif
                             @endif
+
+                            <a href="{{url('download/user/event/detail/' . $user->id)}}" class="btn btn-success btn-xs">Download</a>
 
                         </td>
                     </tr>

@@ -6,13 +6,15 @@
     "type": "project",
     "require": {
         "php": ">=5.6.4",
+        "barryvdh/laravel-dompdf": "^0.8.2",
         "cartalyst/sentinel": "2.0.*",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.4",
+        "maatwebsite/excel": "~2.1.0",
         "roland/crud": "dev-master",
-        "simplesoftwareio/simple-qrcode": "~1" ,
-        "maatwebsite/excel": "~2.1.0"
+        "simplesoftwareio/simple-qrcode": "~1",
+        "spatie/pdf-to-image": "^1.8"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
