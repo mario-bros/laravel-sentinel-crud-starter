@@ -149,11 +149,6 @@ class User extends Model implements RoleableInterface, PermissibleInterface, Per
         return $this->loginNames;
     }
 
-    /**
-     * Returns the roles relationship.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
     public function user_event_detail()
     {
         //return $this->hasMany('App\UserVenueDetail', 'user_id', 'id');
@@ -165,6 +160,12 @@ class User extends Model implements RoleableInterface, PermissibleInterface, Per
         //return $this->hasOne('App\UserVenueDetail');
 
         //return $this->belongsTo('App\UserVenueDetail');
+    }
+
+    public function user_retreat_detail()
+    {
+        return $this->hasOne('App\UserRetreatDetail');
+        //return $this->hasOne('App\UserRetreatDetail', 'user_id', 'id');
     }
 
     /**

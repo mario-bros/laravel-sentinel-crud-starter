@@ -39,8 +39,8 @@
                         <td><a href="{{route('user.show', $user->id)}}">{{$user->last_name}}</a></td>
                         <td>{{$user->email}}</td>
                         <td>
-                            @if($user->user_event_detail()->first())
-                                <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->color(38, 38, 38, 0.85)->backgroundColor(255, 255, 255, 0.82)->size(200)->generate($user->user_event_detail->qr_code)) !!} ">
+                            @if($user->user_retreat_detail()->first())
+                                <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->color(38, 38, 38, 0.85)->backgroundColor(255, 255, 255, 0.82)->size(200)->generate($user->user_retreat_detail->qr_code)) !!} ">
                                 <p> This is your qr code, Download it into your mobile</p>
                             @endif
                         </td>

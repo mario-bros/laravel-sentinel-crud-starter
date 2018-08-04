@@ -55,53 +55,61 @@
     <br/><br/><br/>
 
     <fieldset>
-        <legend>Venue Details : </legend>
+        <legend>Retreat Details : </legend>
 
-        <div class="form-group {{ $errors->has('seat_class') ? 'has-error' : ''}}">
-            {!! Form::label('seat_class', 'Seat Class', ['class' => 'col-md-4 control-label']) !!}
+        <div class="form-group {{ $errors->has('first_dinner_status') ? 'has-error' : ''}}">
+            {!! Form::label('first_dinner_status', 'First Dinner Status', ['class' => 'col-md-4 control-label']) !!}
             <div class="col-sm-6">
-                {!! Form::select('seat_class', ['economy' => "Economy", 'regular' => "Regular", 'vip' => "VIP", 'vvip' => "VVIP"], @$user->user_event_detail->seat_class, ['class' => 'form-control']) !!}
-                {!! $errors->first('seat_class', '<p class="help-block">:message</p>') !!}
+                {!! Form::select('first_dinner_status', [0 => "Not yet", 1 => "Done"], @$user->user_retreat_detail->first_dinner_status, ['class' => 'form-control']) !!}
+                {!! $errors->first('first_dinner_status', '<p class="help-block">:message</p>') !!}
             </div>
         </div>
 
-        <div class="form-group {{ $errors->has('seat_position') ? 'has-error' : ''}}">
-            {!! Form::label('seat_position', 'Seat Position', ['class' => 'col-md-4 control-label']) !!}
+        <div class="form-group {{ $errors->has('second_breakfast_status') ? 'has-error' : ''}}">
+            {!! Form::label('second_breakfast_status', 'Second Breakfast Status', ['class' => 'col-md-4 control-label']) !!}
             <div class="col-sm-6">
-                {!! Form::text('seat_position', @$user->user_event_detail->seat_position, ['class' => 'form-control']) !!}
-                {!! $errors->first('seat_position', '<p class="help-block">:message</p>') !!}
+                {!! Form::select('second_breakfast_status', [0 => "Not yet", 1 => "Done"], @$user->user_retreat_detail->second_breakfast_status, ['class' => 'form-control']) !!}
+                {!! $errors->first('second_breakfast_status', '<p class="help-block">:message</p>') !!}
             </div>
         </div>
 
-        <div class="form-group {{ $errors->has('receive_certificate_status') ? 'has-error' : ''}}">
-            {!! Form::label('receive_certificate_status','Certificate Received ?', ['class' => 'col-md-4 control-label']) !!}
+        <div class="form-group {{ $errors->has('third_lunch_status') ? 'has-error' : ''}}">
+            {!! Form::label('third_lunch_status','Third Lunch Status?', ['class' => 'col-md-4 control-label']) !!}
             <div class="col-sm-6">
-                {!! Form::select('receive_certificate_status', [0 => "Not yet", 1 => "Done"], @$user->user_event_detail->receive_certificate_status, ['class' => 'form-control']) !!}
-                {!! $errors->first('receive_certificate_status', '<p class="help-block">:message</p>') !!}
+                {!! Form::select('third_lunch_status', [0 => "Not yet", 1 => "Done"], @$user->user_retreat_detail->third_lunch_status, ['class' => 'form-control']) !!}
+                {!! $errors->first('third_lunch_status', '<p class="help-block">:message</p>') !!}
             </div>
         </div>
 
-        <div class="form-group {{ $errors->has('receive_first_snack_status') ? 'has-error' : ''}}">
-            {!! Form::label('receive_first_snack_status','First Snack Received ?', ['class' => 'col-md-4 control-label']) !!}
+        <div class="form-group {{ $errors->has('first_snack_status') ? 'has-error' : ''}}">
+            {!! Form::label('first_snack_status','First Snack Received ?', ['class' => 'col-md-4 control-label']) !!}
             <div class="col-sm-6">
-                {!! Form::select('receive_first_snack_status', [0 => "Not yet", 1 => "Done"], @$user->user_event_detail->receive_first_snack_status, ['class' => 'form-control']) !!}
-                {!! $errors->first('receive_first_snack_status', '<p class="help-block">:message</p>') !!}
+                {!! Form::select('first_snack_status', [0 => "Not yet", 1 => "Done"], @$user->user_retreat_detail->first_snack_status, ['class' => 'form-control']) !!}
+                {!! $errors->first('first_snack_status', '<p class="help-block">:message</p>') !!}
             </div>
         </div>
 
-        <div class="form-group {{ $errors->has('receive_second_snack_status') ? 'has-error' : ''}}">
-            {!! Form::label('receive_second_snack_status','Second Snack Received ?', ['class' => 'col-md-4 control-label']) !!}
+        <div class="form-group {{ $errors->has('second_snack_status') ? 'has-error' : ''}}">
+            {!! Form::label('second_snack_status','Second Snack Received ?', ['class' => 'col-md-4 control-label']) !!}
             <div class="col-sm-6">
-                {!! Form::select('receive_second_snack_status', [0 => "Not yet", 1 => "Done"], @$user->user_event_detail->receive_first_snack_status, ['class' => 'form-control']) !!}
-                {!! $errors->first('receive_second_snack_status', '<p class="help-block">:message</p>') !!}
+                {!! Form::select('second_snack_status', [0 => "Not yet", 1 => "Done"], @$user->user_retreat_detail->second_snack_status, ['class' => 'form-control']) !!}
+                {!! $errors->first('second_snack_status', '<p class="help-block">:message</p>') !!}
             </div>
         </div>
 
-        <div class="form-group {{ $errors->has('receive_lunch_status') ? 'has-error' : ''}}">
-            {!! Form::label('receive_lunch_status','Lunch Received ?', ['class' => 'col-md-4 control-label']) !!}
+        <div class="form-group {{ $errors->has('room_no') ? 'has-error' : ''}}">
+            {!! Form::label('room_no','Room No', ['class' => 'col-md-4 control-label']) !!}
             <div class="col-sm-6">
-                {!! Form::select('receive_lunch_status', [0 => "Not yet", 1 => "Done"], @$user->user_event_detail->receive_lunch_status, ['class' => 'form-control']) !!}
-                {!! $errors->first('receive_lunch_status', '<p class="help-block">:message</p>') !!}
+                {!! Form::text('room_no', @$user->user_retreat_detail->room_no, ['class' => 'form-control']) !!}
+                {!! $errors->first('room_no', '<p class="help-block">:message</p>') !!}
+            </div>
+        </div>
+
+        <div class="form-group {{ $errors->has('description') ? 'has-error' : ''}}">
+            {!! Form::label('description','Description', ['class' => 'col-md-4 control-label']) !!}
+            <div class="col-sm-6">
+                {!! Form::text('description', @$user->user_retreat_detail->description, ['class' => 'form-control']) !!}
+                {!! $errors->first('description', '<p class="help-block">:message</p>') !!}
             </div>
         </div>
 

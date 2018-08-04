@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\User;
-use App\UserVenueDetail;
+use App\UserRetreatDetail;
 use App\Role;
 use Validator;
 use Session;
@@ -21,13 +21,14 @@ use Carbon\Carbon;
 use Excel;
 use PDF;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Str;
 
 
 class UserController extends Controller
 {
     public function __construct()
     {
-      //$this->middleware('auth')->except('orders');
+        //$this->middleware('auth')->except('orders');
       // $this->middleware('auth');
     }
 
@@ -94,7 +95,7 @@ class UserController extends Controller
         $userEventInputRequest['created_at'] = $createdTime;
         $userEventInputRequest['updated_at'] = $createdTime;
 
-        UserVenueDetail::create($userEventInputRequest);
+        UserRetreatDetail::create($userEventInputRequest);
 
         Session::flash('message', 'Success! User is created successfully.');
         Session::flash('status', 'success');
@@ -212,7 +213,7 @@ class UserController extends Controller
             $updatedTime = date('Y-m-d H:i:s', time());
             $userEventInputRequest['updated_at'] = $updatedTime;
 
-            $userVenueDetail = UserVenueDetail::findOrFail($user->user_event_detail->id);
+            $userVenueDetail = UserRetreatDetail::findOrFail($user->user_retreat_detail->id);
             $userVenueDetail->update($userEventInputRequest);
 
             Session::flash('message', 'Success! User is updated successfully.');
@@ -402,44 +403,22 @@ class UserController extends Controller
 
                 $activeSheet = $doc->getActiveSheet();
                 $dataRowCount = $activeSheet->getHighestRow();
-                $barisMulai = 8;
+                $barisMulai = 3;
 
                 DB::beginTransaction();
                 for ($i = $barisMulai; $i <= $dataRowCount; $i++) {
 
-                    $klmKodeAset = trim($activeSheet->getCell('B' . $i)->getValue());
-                    if ( empty($klmKodeAset) ) break;
+                    $klmNoPeserta = trim($activeSheet->getCell('A' . $i)->getValue());
+                    if ( empty($klmNoPeserta) ) break;
 
 
-                    $klmNamaPeserta = trim($activeSheet->getCell('D' . $i)->getValue());
-                    $klmSeatPosition = trim($activeSheet->getCell('E' . $i)->getValue());
-                    //dd($klmSeatPosition);
-                    $firstAlpha = substr($klmSeatPosition, 0, 1);
-
-                    switch ($firstAlpha) {
-                        case 'VV':
-                            $klmSeatClass = 'VVIP';
-                            break;
-
-                        case 'V':
-                            $klmSeatClass = 'VIP';
-                            break;
-
-                        case 'R':
-                            $klmSeatClass = 'Regular';
-                            break;
-                        
-                        default:
-                            $klmSeatClass = 'Economy';
-                            break;
-                    }
-
-
+                    $klmNamaPeserta = trim($activeSheet->getCell('B' . $i)->getValue());
+                    $klmPelunasan = trim($activeSheet->getCell('C' . $i)->getValue());
 
                     $createdTime = date('Y-m-d H:i:s', time());
                     $importDataUser = [
                         // mandatory fields
-                        'email' => "$klmSeatPosition@email.com",
+                        'email' => Str::random(15) . "@email.com",
                         'password' => "123456",
 
                         // identity fields
@@ -460,24 +439,25 @@ class UserController extends Controller
                     $clientRole = 1;
                     $user->roles()->sync([$clientRole]);
 
-                    $importDataUserEvent = [
+                    $importDataUserRetreat = [
 
                         // mandatory fields
                         'user_id' => $user->id,
                         'qr_code' => md5($user->id),
 
-                        'receive_certificate_status' => 0,
-                        'receive_first_snack_status' => 0,
-                        'receive_second_snack_status' => 0,
-                        'receive_lunch_status' => 0,
-                        'seat_class' => $klmSeatClass,
-                        'seat_position' => $klmSeatPosition,
+                        'first_dinner_status' => 0,
+                        'second_breakfast_status' => 0,
+                        'third_lunch_status' => 0,
+                        'first_snack_status' => 0,
+                        'second_snack_status' => 0,
+                        'room_no' => '',
+                        'description' => $klmPelunasan,
 
                         'created_at' => $createdTime,
                         'updated_at' => $createdTime
                     ];
 
-                    UserVenueDetail::create($importDataUserEvent);
+                    UserRetreatDetail::create($importDataUserRetreat);
                 }
 
                 DB::commit();
@@ -493,9 +473,7 @@ class UserController extends Controller
     public function downloadPDF($id)
     {
         $user = User::findOrFail($id);
-        //dd($user->user_event_detail->seat_class);
 
-        //$pdf = PDF::loadView('pdf', compact('user'));
         $pdf = PDF::loadView('backEnd.users.pdf', compact('user'));
         $pdf->save('pdf/' . $id . '.pdf');
 

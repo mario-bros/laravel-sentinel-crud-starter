@@ -16,11 +16,16 @@ Route::get('qrLogin', ['uses' => 'QrLoginController@index']);
 Route::get('qrLogin-option1', ['uses' => 'QrLoginController@indexoption2']);
 Route::post('qrLogin', ['uses' => 'QrLoginController@checkUser']);
 
-Route::match(['get', 'post'], 'user/import', ['as' => 'user.import', 'uses' => 'UserController@importUsers']);
 Route::get('download/user/event/detail/{id}', ['uses' => 'UserController@downloadPDF']);
 
-Route::get('check/user/certificate', ['uses' => 'QrLoginController@checkUserCertificate']);
-Route::post('check/user/certificate', ['uses' => 'QrLoginController@userCertificateChecked']);
+Route::get('check/user/first-dinner', ['uses' => 'QrLoginController@checkUserFirstDinner']);
+Route::post('check/user/first-dinner', ['uses' => 'QrLoginController@userFirstDinnerChecked']);
+
+Route::get('check/user/second-breakfast', ['uses' => 'QrLoginController@checkUserSecondBreakfast']);
+Route::post('check/user/second-breakfast', ['uses' => 'QrLoginController@userSecondBreakfastChecked']);
+
+Route::get('check/user/third-lunch', ['uses' => 'QrLoginController@checkUserThirdLunch']);
+Route::post('check/user/third-lunch', ['uses' => 'QrLoginController@userThirdLunchChecked']);
 
 Route::get('check/user/first-snack', ['uses' => 'QrLoginController@checkUserFirstSnack']);
 Route::post('check/user/first-snack', ['uses' => 'QrLoginController@userFirstSnackChecked']);
@@ -28,11 +33,12 @@ Route::post('check/user/first-snack', ['uses' => 'QrLoginController@userFirstSna
 Route::get('check/user/second-snack', ['uses' => 'QrLoginController@checkUserSecondSnack']);
 Route::post('check/user/second-snack', ['uses' => 'QrLoginController@userSecondSnackChecked']);
 
-Route::get('check/user/lunch', ['uses' => 'QrLoginController@checkUserLunch']);
-Route::post('check/user/lunch', ['uses' => 'QrLoginController@userLunchChecked']);
+Route::match(['get', 'post'], 'user/import', ['as' => 'user.import', 'uses' => 'UserController@importUsers']);
 
 Route::group(['middleware' => ['web', 'auth', 'permission'] ], function () {
+
         Route::get('dashboard', ['uses' => 'HomeController@dashboard', 'as' => 'home.dashboard']);
+
 
         //users
         Route::resource('user', 'UserController');
@@ -40,7 +46,8 @@ Route::group(['middleware' => ['web', 'auth', 'permission'] ], function () {
         Route::post('user/{user}/save', ['uses' => 'UserController@save', 'as' => 'user.save']);
         Route::get('user/{user}/activate', ['uses' => 'UserController@activate', 'as' => 'user.activate']);
         Route::get('user/{user}/deactivate', ['uses' => 'UserController@deactivate', 'as' => 'user.deactivate']);
-          Route::post('user/ajax_all', ['uses' => 'UserController@ajax_all']);
+        Route::post('user/ajax_all', ['uses' => 'UserController@ajax_all']);
+
 
         //roles
         Route::resource('role', 'RoleController');

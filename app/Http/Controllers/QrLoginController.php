@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Sentinel;
 use App\User;
 use App\UserVenueDetail;
+use App\UserRetreatDetail;
 
 class QrLoginController extends Controller
 {
@@ -14,10 +15,20 @@ class QrLoginController extends Controller
 		return view('auth.QrLogin');
 	}
 
-	public function checkUserCertificate(Request $request)
+	public function checkUserFirstDinner(Request $request)
 	{
-		return view('auth.checkUserCertificate', compact(''));
+		return view('auth.checkUserFirstDinner', compact(''));
 	}
+
+    public function checkUserSecondBreakfast(Request $request)
+    {
+        return view('auth.checkUserSecondBreakfast');
+    }
+
+    public function checkUserThirdLunch(Request $request)
+    {
+        return view('auth.checkUserThirdLunch');
+    }
 
     public function checkUserFirstSnack(Request $request)
     {
@@ -27,11 +38,6 @@ class QrLoginController extends Controller
     public function checkUserSecondSnack(Request $request)
     {
         return view('auth.checkUserSecondSnack');
-    }
-
-    public function checkUserLunch(Request $request)
-    {
-        return view('auth.checkUserLunch');
     }
 
 	public function indexoption2(Request $request) {
@@ -78,18 +84,18 @@ class QrLoginController extends Controller
         return $result;
 	}
 
-	public function userCertificateChecked(Request $request)
+	public function userFirstDinnerChecked(Request $request)
 	{
 		$result = 3;
 		if ($request->data) {
-			$userCertificateDone = UserVenueDetail::where('qr_code', $request->data)->where('receive_certificate_status', 1)->first();
-			if ($userCertificateDone)
+			$userFirstDinnerDone = UserRetreatDetail::where('qr_code', $request->data)->where('first_dinner_status', 1)->first();
+			if ($userFirstDinnerDone)
 				return 1;
 
-            $userCertificateChecked = UserVenueDetail::where('qr_code', $request->data)->where('receive_certificate_status', 0)->first();
-            if ($userCertificateChecked) {
-                $userCertificateChecked->receive_certificate_status = 1;
-                $userCertificateChecked->save();
+            $userFirstDinnerChecked = UserRetreatDetail::where('qr_code', $request->data)->where('first_dinner_status', 0)->first();
+            if ($userFirstDinnerChecked) {
+                $userFirstDinnerChecked->first_dinner_status = 1;
+                $userFirstDinnerChecked->save();
                 return 2;
             }
 
@@ -98,17 +104,57 @@ class QrLoginController extends Controller
 		return $result;
 	}
 
+    public function userSecondBreakfastChecked(Request $request)
+    {
+        $result = 3;
+        if ($request->data) {
+            $userSecondBreakfastDone = UserRetreatDetail::where('qr_code', $request->data)->where('second_breakfast_status', 1)->first();
+            if ($userSecondBreakfastDone)
+                return 1;
+
+            $userSecondBreakfastChecked = UserRetreatDetail::where('qr_code', $request->data)->where('second_breakfast_status', 0)->first();
+            if ($userSecondBreakfastChecked) {
+                $userSecondBreakfastChecked->second_breakfast_status = 1;
+                $userSecondBreakfastChecked->save();
+                return 2;
+            }
+
+        }
+
+        return $result;
+    }
+
+    public function userThirdLunchChecked(Request $request)
+    {
+        $result = 3;
+        if ($request->data) {
+            $userThirdLunchDone = UserRetreatDetail::where('qr_code', $request->data)->where('third_lunch_status', 1)->first();
+            if ($userThirdLunchDone)
+                return 1;
+
+            $userThirdLunchChecked = UserRetreatDetail::where('qr_code', $request->data)->where('third_lunch_status', 0)->first();
+            if ($userThirdLunchChecked) {
+                $userThirdLunchChecked->third_lunch_status = 1;
+                $userThirdLunchChecked->save();
+                return 2;
+            }
+
+        }
+
+        return $result;
+    }
+
     public function userFirstSnackChecked(Request $request)
     {
         $result = 3;
         if ($request->data) {
-            $userFirstSnackDone = UserVenueDetail::where('qr_code', $request->data)->where('receive_first_snack_status', 1)->first();
+            $userFirstSnackDone = UserRetreatDetail::where('qr_code', $request->data)->where('first_snack_status', 1)->first();
             if ($userFirstSnackDone)
                 return 1;
 
-            $userFirstSnackChecked = UserVenueDetail::where('qr_code', $request->data)->where('receive_first_snack_status', 0)->first();
+            $userFirstSnackChecked = UserRetreatDetail::where('qr_code', $request->data)->where('first_snack_status', 0)->first();
             if ($userFirstSnackChecked) {
-                $userFirstSnackChecked->receive_first_snack_status = 1;
+                $userFirstSnackChecked->first_snack_status = 1;
                 $userFirstSnackChecked->save();
                 return 2;
             }
@@ -122,34 +168,14 @@ class QrLoginController extends Controller
     {
         $result = 3;
         if ($request->data) {
-            $userFirstSnackDone = UserVenueDetail::where('qr_code', $request->data)->where('receive_second_snack_status', 1)->first();
-            if ($userFirstSnackDone)
+            $userSecondSnackDone = UserRetreatDetail::where('qr_code', $request->data)->where('second_snack_status', 1)->first();
+            if ($userSecondSnackDone)
                 return 1;
 
-            $userFirstSnackChecked = UserVenueDetail::where('qr_code', $request->data)->where('receive_second_snack_status', 0)->first();
-            if ($userFirstSnackChecked) {
-                $userFirstSnackChecked->receive_second_snack_status = 1;
-                $userFirstSnackChecked->save();
-                return 2;
-            }
-
-        }
-
-        return $result;
-    }
-
-    public function userLunchChecked(Request $request)
-    {
-        $result = 3;
-        if ($request->data) {
-            $userLunchDone = UserVenueDetail::where('qr_code', $request->data)->where('receive_lunch_status', 1)->first();
-            if ($userLunchDone)
-                return 1;
-
-            $userLunchChecked = UserVenueDetail::where('qr_code', $request->data)->where('receive_lunch_status', 0)->first();
-            if ($userLunchChecked) {
-                $userLunchChecked->receive_lunch_status = 1;
-                $userLunchChecked->save();
+            $userSecondSnackChecked = UserRetreatDetail::where('qr_code', $request->data)->where('second_snack_status', 0)->first();
+            if ($userSecondSnackChecked) {
+                $userSecondSnackChecked->second_snack_status = 1;
+                $userSecondSnackChecked->save();
                 return 2;
             }
 

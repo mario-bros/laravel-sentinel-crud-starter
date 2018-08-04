@@ -13,7 +13,7 @@
 <table class="table table-bordered">
     <tr>
         <td>
-            Seminar Bisnis Inspiratif
+            Retreat Gekari Hope
         </td>
     </tr>
     <tr>
@@ -30,19 +30,19 @@
         <td>{{$user->first_name}}</td>
     </tr>
     <tr>
-        <td>Kelas</td>
+        <td>Pelunasan</td>
         <td>:</td>
-        <td>{{$user->user_event_detail->seat_class}}</td>
+        <td>{{$user->user_retreat_detail->description}}</td>
     </tr>
     <tr>
-        <td>No Seat</td>
+        <td>Room No</td>
         <td>:</td>
-        <td>{{$user->user_event_detail->seat_position }}</td>
+        <td>{{$user->user_retreat_detail->room_no}}</td>
     </tr>
     <tr>
         <td>QR Code</td>
         <td>:</td>
-        <td><img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->color(38, 38, 38, 0.85)->backgroundColor(255, 255, 255, 0.82)->size(200)->generate($user->user_event_detail->qr_code)) !!} "></td>
+        <td><img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->color(38, 38, 38, 0.85)->backgroundColor(255, 255, 255, 0.82)->size(200)->generate($user->user_retreat_detail->qr_code)) !!} "></td>
     </tr>
 </table>
 </body>

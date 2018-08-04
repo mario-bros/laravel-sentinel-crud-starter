@@ -34,14 +34,6 @@ class AddEventRelatedFieldsToUser extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('receive_certificate_status');
-            $table->dropColumn('receive_first_snack_status');
-            $table->dropColumn('receive_second_snack_status');
-            $table->dropColumn('receive_lunch_status');
-            $table->dropColumn('seat_class');
-            $table->dropColumn('seat_position');
-            // $table->string('QRpassword')->default(str_random(40));
-        });
+        Schema::drop('user_venue_details');
     }
 }

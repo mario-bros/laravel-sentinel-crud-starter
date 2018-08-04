@@ -45,15 +45,15 @@
                     $.ajax({
                         type: "POST",
                         cache: false,
-                        url: "{{action('QrLoginController@userCertificateChecked')}}",
+                        url: "{{action('QrLoginController@userSecondBreakfastChecked')}}",
                         data: {"_token": "{{ csrf_token() }}", data: data},
                         success: function (data) {
 
                             if (data == 1) {
-                                return confirm('peserta ini sudah mendapatkan sertifikat');
+                                return confirm('peserta ini sudah mendapatkan Makan 2');
                                 //location.reload()
                             } else if (data == 2) {
-                                return confirm('peserta tercatat mendapatkan sertifikat')
+                                return confirm('peserta tercatat mendapatkan Makan 2')
                                 //location.reload()
                             } else {
                                 return confirm('tidak ada peserta terdaftar menggunakan id qr code ini')

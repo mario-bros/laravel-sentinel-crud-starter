@@ -50,9 +50,9 @@
                         success: function (data) {
 
                             if (data == 1) {
-                                return confirm('peserta ini sudah mendapatkan snack kedua')
+                                return confirm('peserta ini sudah mendapatkan Makan 5')
                             } else if (data == 2) {
-                                return confirm('peserta tercatat mendapatkan snack kedua')
+                                return confirm('peserta tercatat mendapatkan Makan 5')
                             } else {
                                 return confirm('tidak ada peserta terdaftar menggunakan id qr code ini')
                             }
